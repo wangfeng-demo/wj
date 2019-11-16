@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul li {
+            height: 50px;
+            border: 1px solid #ccc;
+            margin: 2px 0;
+            list-style: none;
+        }
+
+        /* 用css实现隔行变色  */
+        li:nth-child(2n) {
+            background: rgb(36, 218, 193);
+        }
+
+        li:nth-child(2n+1) {
+            background: rgb(187, 43, 43)
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+
+</html>
+<script>
+    //使用js实现隔行变色   设置每一行的背景色
+    var oLis = document.getElementsByTagName('li');
+    console.log(oLis);
+    // 这个是最麻烦的方法，用索引一条一条去写。
+     oLis[0].style.background='blue';
+     oLis[1].style.background='green'; 
+
+    // 这是用i++写的
+    for(var i=0;i<7;i++){
+        console.log(i);
+        oLis[i].style.background='blue';
+        i++;
+        oLis[i].style.background='green';
+    }
+
+    //这是用ifelse判断写的、
+     for(var i=0;i<7;i++){
+        console.log(i);
+    if(i%2){
+            oLis[i].style.background='red';
+    }
+    else{
+            oLis[i].style.background='green';
+    }
+    }  
+
+    //这是用三元运算符写的  oLis[i].style.background = i%2==0 ? 'red'：'green'；（==0也是可以去掉的）
+       var oLis = document.getElementsByTagName('li');
+      console.log(oLis);
+      //设置一个变量，用来存储操作的某行的原来颜色
+      var color='';
+      //onmouseenter鼠标进入事件--onmouseleave鼠标离开事件
+      for(var i=0;i<oLis.length;i++){
+          i%2==0 ? oLis[i].style.background='pink': oLis[i].style.background='white';  
+          // oLis[i].style.background = i%2==0 ? 'red'：'green'；（==0也是可以去掉的）
+          // 给每一个LI绑定一个鼠标进入事件
+          oLis[i].onmouseenter=function(){
+              color=this.style.background;
+              // console.log('come on ')
+              // console.log(this);
+              this.style.background='gold'; 
+          }
+          // 给每一个LI绑定一个鼠标离开事件
+          oLis[i].onmouseleave=function(){
+              // console.log('come back') 
+              // this 代表当前操作的这个元素
+                   this.style.background=color;
+          } 
+      } 
+    // 实现隔行变色的第二种方式，鼠标滑过变色，还能恢复之前颜色
+    var oLis = document.getElementsByTagName('li');
+    for (var i = 0; i < oLis.length; i++) {
+        oLis[i].style.background = i % 2 == 0 ? 'yellow' : 'gold';
+        oLis[i].myBg = oLis[i].style.background;
+        oLis[i].myIndex = i;
+        oLis[i].onmouseenter = function () {
+            this.style.background = 'orange';
+        }
+        oLis[i].onmouseleave = function () {
+            this.style.background = this.myBg;
+        } 
+        //点击后，弹出这是第几行，什么颜色
+        oLis[i].onclick = function () {
+            alert(`这是第${this.myIndex+1}行 背景是${this.myBg}`)
+        }
+    }
+                
+</script>
